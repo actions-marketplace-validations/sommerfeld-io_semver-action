@@ -125,10 +125,9 @@ function init() {
 
       LOG_HEADER "Initialize $MODULE"
       go mod init "$MODULE"
+      go mod tidy
 
       go get -u github.com/spf13/cobra@latest
-      
-      go mod tidy
     fi
   )
 }

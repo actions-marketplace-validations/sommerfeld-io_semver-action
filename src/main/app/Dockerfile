@@ -19,8 +19,7 @@ LABEL maintainer="sebastian@sommerfeld.io"
 
 # To run integration tests with a proper shell and tools
 RUN apk add --no-cache bash=5.2.15-r0 \
-    && apk add --no-cache curl=7.88.1-r0
-    # && apk add --no-cache jq=1.6-r2
+    && apk add --no-cache curl=8.1.2-r0
 
 COPY --from=build /app/target/semver /usr/bin/semver
 

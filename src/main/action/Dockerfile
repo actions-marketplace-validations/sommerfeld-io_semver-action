@@ -1,8 +1,16 @@
-FROM alpine:3.18.2 AS run
+# FROM alpine:3.18.2 AS run
+# LABEL maintainer="sebastian@sommerfeld.io"
+# 
+# COPY entrypoint.sh /entrypoint.sh
+# ENTRYPOINT ["/entrypoint.sh"]
+
+FROM alpine:3.18.0 AS run
 LABEL maintainer="sebastian@sommerfeld.io"
 
-RUN apk add --no-cache bash=5.2.15-r5 \
-    && apk add --no-cache curl=8.1.2-r0
+COPY semver-app/semver /usr/bin/semver
 
-COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+ARG USER=semver
+RUN adduser -D $USER
+
+USER $USER
+ENTRYPOINT [ "/usr/bin/semver" ]

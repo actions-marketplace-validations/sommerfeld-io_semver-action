@@ -9,11 +9,7 @@ updates:
     directory: src/main/action
     schedule:
       interval: weekly
-  - package-ecosystem: docker
-    directory: src/main/app/go
-    schedule:
-      interval: weekly
   - package-ecosystem: gomod
-    directory: src/main/app/go
+    directory: src/main/semver-app
     schedule:
       interval: daily

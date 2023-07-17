@@ -1,0 +1,71 @@
+---
+version: "3.3"
+services:
+
+  init:
+    image: golang:1.20.6-alpine3.18
+    container_name: init
+    user: ${MY_UID}:${MY_GID}
+    volumes: &volumes
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - /home/${MY_USERNAME}/.cache:/home/${MY_USERNAME}/.cache:rw
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./semver-app:/app
+    working_dir: /app
+    command:
+      - /bin/sh
+      - -c
+      - |
+        go mod init github.com/sommerfeld-io/semver
+        go mod tidy
+        go get -u github.com/spf13/cobra@latest
+
+  test:
+    image: golang:1.20.6-alpine3.18
+    container_name: test
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    user: ${MY_UID}:${MY_GID}
+    volumes: *volumes
+    working_dir: /app
+    command:
+      - /bin/sh
+      - -c
+      - |
+        go fmt ./...
+        go test -coverprofile=go-code-coverage.out ./...
+        sed -i "s|github.com/sommerfeld-io/semver|src/main/semver-app|g" go-code-coverage.out
+
+  build:
+    image: golang:1.20.6-alpine3.18
+    container_name: build
+    depends_on:
+      test:
+        condition: service_completed_successfully
+    user: ${MY_UID}:${MY_GID}
+    volumes: *volumes
+    working_dir: /app
+    command:
+      - /bin/sh
+      - -c
+      - |
+        go build .
+
+  # run:
+  #   build: ./action
+  #   image: local/semver:dev
+  #   container_name: run
+  #   depends_on:
+  #     build:
+  #       condition: service_completed_successfully
+  #   user: ${MY_UID}:${MY_GID}
+  #   volumes: *volumes
+  #   working_dir: /app
+  #   command:
+  #     - /bin/sh
+  #     - -c
+  #     - |
+  #       ./semver

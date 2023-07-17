@@ -13,12 +13,8 @@ By incorporating the `semver-action` into the `Deploy + Release workflows` of al
 * Where to file issues -> {url-project}/issues
 * Sonar -> https://sonarcloud.io/project/overview?id=sommerfeld-io_semver-action
 
-=== Versioning Rules
-Semantic versions are applied in the link:https://github.com/sommerfeld-io[sommerfeld-io GitHub organization] as follows:
-
-. Versions follow this pattern: `major.minor.bugfix` for stable versions and `major.minor.bugfix-SNAPSHOT` for unstable versions, that are still under active development.
-.. Examples: `v0.1.2` or `v0.1.2-SNAPSHOT`
-.. The leading `v` in lowercase is mandatory
+=== Versioning
+Semantic versions are applied in the link:https://github.com/sommerfeld-io[sommerfeld-io GitHub organization]. All Versions follow the pattern `major.minor.bugfix` for stable versions (e.g. `v0.1.2`) and `major.minor.bugfix-SNAPSHOT` for unstable versions, that are still under active development (e.g. `v0.1.2-SNAPSHOT`). The leading `v` in lowercase is mandatory
 
 == How to use this project
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.

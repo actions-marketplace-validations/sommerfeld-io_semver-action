@@ -1,0 +1,19 @@
+---
+version: 2
+
+#  +-------------------------------------------------------+
+#  |                                                       |
+#  |    This file represents a foundation for your own     |
+#  |    dependabot config and is written into this repo    |
+#  |    by the housekeeping-repo.yml workflow. the         |
+#  |                                                       |
+#? |    However, feel free to update this file             |
+#? |    because changes won't be overwritten.              |
+#  |                                                       |
+#  +-------------------------------------------------------+
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

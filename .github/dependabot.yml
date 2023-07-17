@@ -6,10 +6,10 @@ updates:
     schedule:
       interval: weekly
   - package-ecosystem: docker
-    directory: src/main/action
+    directory: src/main
     schedule:
       interval: weekly
   - package-ecosystem: gomod
-    directory: src/main/semver-app
+    directory: src/main/app
     schedule:
       interval: daily

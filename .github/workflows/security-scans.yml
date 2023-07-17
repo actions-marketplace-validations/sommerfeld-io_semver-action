@@ -27,7 +27,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ${{ env.IMAGE }}:latest
-          args: --file=src/main/semver-app/Dockerfile
+          args: --file=src/main/app/Dockerfile
       - name: Upload snyk result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:

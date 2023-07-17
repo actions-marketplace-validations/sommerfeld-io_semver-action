@@ -20,5 +20,5 @@ tfplan
 *.secret
 
 # semver
-src/main/semver-app/semver
-src/main/semver-app/go-code-coverage.out
+src/main/app/semver
+src/main/app/go-code-coverage.out

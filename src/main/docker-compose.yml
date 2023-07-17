@@ -12,7 +12,7 @@ services:
       - /home/${MY_USERNAME}/.cache:/home/${MY_USERNAME}/.cache:rw
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - ./semver-app:/app
+      - ./app:/app
     working_dir: /app
     command:
       - /bin/sh
@@ -37,7 +37,7 @@ services:
       - |
         go fmt ./...
         go test -coverprofile=go-code-coverage.out ./...
-        sed -i "s|github.com/sommerfeld-io/semver|src/main/semver-app|g" go-code-coverage.out
+        sed -i "s|github.com/sommerfeld-io/semver|src/main/app|g" go-code-coverage.out
 
   build:
     image: golang:1.20.6-alpine3.18
@@ -53,6 +53,7 @@ services:
       - -c
       - |
         go build .
+        ./semver
 
   # run:
   #   build: ./action

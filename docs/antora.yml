@@ -1,7 +1,7 @@
 ---
 name: semver-action
 title: Semantic Version Github Action
-version: main
+version: setup-go-app
 start_page: ROOT:index.adoc
 nav:
   - modules/ROOT/nav.adoc

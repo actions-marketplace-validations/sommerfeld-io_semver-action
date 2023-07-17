@@ -12,7 +12,7 @@ on:
     - cron: '0 3 * * 1' # https://crontab.guru/#0_2_*_*_1
 
 env:
-  IMAGE: sommerfeldio/website
+  IMAGE: sommerfeldio/semver-action
 
 permissions:
   contents: read

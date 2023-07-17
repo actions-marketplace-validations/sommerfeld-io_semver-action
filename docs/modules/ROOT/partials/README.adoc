@@ -1,0 +1,29 @@
+Streamline Release Workflows with Semantic Version Validation for Accurate and Consistent Versioning!
+
+image:{github-actions-url}/{job-generate-docs}/{badge}[Github Badge, link={github-actions-url}/{job-generate-docs}]
+image:{github-actions-url}/{job-ci}/{badge}[Github Badge, link={github-actions-url}/{job-ci}]
+
+
+== About this project
+The semver-action repository provides a GitHub Action that enables the validation of semantic versions in all Deploy + Release workflows used within the sommerfeld-io organization. This action helps ensure consistent and accurate versioning across projects by enforcing the rules defined in the link:https://semver.org[Semantic Versioning 2.0.0] specification.
+
+By incorporating the `semver-action` into the `Deploy + Release workflows` of all repositories in the sommerfeld-io organization, software projects can ensure consistent and accurate semantic versioning, contributing to improved release processes and efficient collaboration.
+
+* Github Repository -> {url-project}
+* Where to file issues -> {url-project}/issues
+
+=== Versioning Rules
+Semantic versions are applied in the link:https://github.com/sommerfeld-io[sommerfeld-io GitHub organization] as follows:
+
+. Versions follow this pattern: `major.minor.bugfix` for stable versions and `major.minor.bugfix-SNAPSHOT` for unstable versions, that are still under active development.
+.. Examples: `v0.1.2` or `v0.1.2-SNAPSHOT`
+.. The leading `v` in lowercase is mandatory
+
+== How to use this project
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+== Risks and Technical Debts
+link:{url-project}/issues?q=is%3Aissue+label%3Asecurity%2Crisk+is%3Aopen[All issues labeled as risk (= some sort of risk or a technical debt) or security (= related to security issues)] are tracked as Github issue and carry the respective label.
+
+== Contact
+Feel free to contact me via sebastian@sommerfeld.io or visit my website https://www.sommerfeld.io.

@@ -12,10 +12,16 @@ By incorporating the `semver-action` into the `Deploy + Release workflows` of al
 * Where to file issues -> {url-project}/issues
 * Sonar -> https://sonarcloud.io/project/overview?id=sommerfeld-io_semver-action
 
-=== Versioning
+=== About Semantic Versioning
 Semantic versions are applied in the link:https://github.com/sommerfeld-io[sommerfeld-io GitHub organization]. All Versions follow the pattern `major.minor.bugfix` for stable versions (e.g. `v0.1.2`) and `major.minor.bugfix-SNAPSHOT` for unstable versions, that are still under active development (e.g. `v0.1.2-SNAPSHOT`). The leading `v` in lowercase is mandatory
 
 == How to use this project
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+=== Use in Github Actions Workflows 
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+=== Use locally without Github Actions
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 === Development
@@ -23,6 +29,7 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 
 [cols="1,3", options="header"]
 |===
+|File / Folder |Description
 |`src/main/Dockerfile` |The Dockerfile used for the Github Action. This image is not pblished to DockerHub
 |`src/main/go/Dockerfile` |The Dockerfile which bundles the Go applcation. The Go application serves as the core logic for managing and handling all tasks related to semantic versions. 
 |===

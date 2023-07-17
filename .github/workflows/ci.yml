@@ -31,21 +31,6 @@ jobs:
         with:
           dockerfile: src/main/Dockerfile
 
-  sonar-scan:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
   ci:
     runs-on: ubuntu-latest
     needs: ['module-ci-lint', 'lint-dockerfile']
@@ -56,8 +41,35 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      # BUILD GO APP WITHOUT DOCKER ??????????
-      # SONAR ????????????????????????????????
+      - name: Setup Golang
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.20.6'
+      - name: Test go app
+        run: |
+          (
+            cd src/main/app || exit
+            readonly COVERAGE_REPORT="go-code-coverage.out"
+
+            go test -coverprofile="$COVERAGE_REPORT" ./...
+
+            old='github.com/sebastian-sommerfeld-io/tron'
+            new='src/main/app'
+            sed -i "s|$old|$new|g" "$COVERAGE_REPORT"
+          )
+        shell: bash
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Build go app
+        run: |
+          (
+            cd src/main/app || exit
+            go build
+          )
+        shell: bash
       - name: Set docker tag ('ci' for main or feature branch)
         id: vars
         run: |
@@ -86,7 +98,7 @@ jobs:
 
   on-failure:
     runs-on: ubuntu-latest
-    needs: ['module-ci-lint', 'lint-dockerfile', 'ci', 'sonar-scan']
+    needs: ['module-ci-lint', 'lint-dockerfile', 'ci']
     if: failure()
 
     steps:

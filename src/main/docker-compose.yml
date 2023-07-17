@@ -53,7 +53,7 @@ services:
       - -c
       - |
         go build .
-        ./semver
+        # ./semver
 
   # run:
   #   build: ./action

@@ -7,7 +7,7 @@
 FROM alpine:3.18.0 AS run
 LABEL maintainer="sebastian@sommerfeld.io"
 
-COPY semver-app/semver /usr/bin/semver
+COPY app/semver /usr/bin/semver
 
 ARG USER=semver
 RUN adduser -D $USER

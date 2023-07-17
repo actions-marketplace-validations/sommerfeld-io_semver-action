@@ -49,7 +49,7 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 |===
 |File / Folder |Description
 |`src/main/action/Dockerfile` |The Dockerfile used for the Github Action. This image is not pblished to DockerHub
-|`src/main/app/go/Dockerfile` |The Dockerfile which bundles the Go applcation. The Go application serves as the core logic for managing and handling all tasks related to semantic versions. 
+|`src/main/semver-app/Dockerfile` |The Dockerfile which bundles the Go applcation. The Go application serves as the core logic for managing and handling all tasks related to semantic versions. 
 |===
 
 == Risks and Technical Debts

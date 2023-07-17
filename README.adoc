@@ -29,6 +29,7 @@ By incorporating the `semver-action` into the `Deploy + Release workflows` of al
 
 * Github Repository -> {url-project}
 * Where to file issues -> {url-project}/issues
+* Sonar -> https://sonarcloud.io/project/overview?id=sommerfeld-io_semver-action
 
 === Versioning Rules
 Semantic versions are applied in the link:https://github.com/sommerfeld-io[sommerfeld-io GitHub organization] as follows:

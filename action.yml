@@ -7,6 +7,6 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: 'src/main/Dockerfile'
+  image: 'src/main/action/Dockerfile'
   args:
     - ${{ inputs.version }}

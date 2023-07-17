@@ -16,7 +16,7 @@ on:
         default: true
 
 env:
-  IMAGE: sommerfeldio/semver-action
+  IMAGE: sommerfeldio/semver
 
 permissions:
   contents: read

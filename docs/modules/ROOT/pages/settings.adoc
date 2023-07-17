@@ -1,0 +1,9 @@
+= Project-specific settings
+
+A summary of all settings that are specific to this project.
+
+== Github Actions Secrets
+Create link:https://github.com/sommerfeld-io/semver-action/settings/secrets/actions[Github Actions secrets] to allow interaction with DockerHub, Snyk andSonarCloud from `link:https://github.com/sommerfeld-io/semver-action/actions[Actions workflows].
+
+. `DOCKERHUB_TOKEN` -> See Bitwarden entry "DOCKERHUB_TOKEN semver-action"
+. `SONAR_TOKEN` -> Configured when creating the project in SonarCloud (manage tokens on the link:https://sonarcloud.io/account/security[SonarCloud Security page])

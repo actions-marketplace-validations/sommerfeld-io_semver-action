@@ -51,6 +51,7 @@ jobs:
             cd src/main/app || exit
             readonly COVERAGE_REPORT="go-code-coverage.out"
 
+            go mod download
             go test -coverprofile="$COVERAGE_REPORT" ./...
 
             old='github.com/sommerfeld-io/semver'
@@ -66,14 +67,12 @@ jobs:
 
   ci-docker:
     runs-on: ubuntu-latest
-    needs: ci-go-app
+    needs: ['module-ci-lint', 'lint-dockerfile']
     permissions:
       contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - name: Set docker tag ('ci' for main or feature branch)
         id: vars
         run: |

@@ -30,8 +30,8 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: src/main/Dockerfile
-
-  ci:
+  
+  ci-go-app:
     runs-on: ubuntu-latest
     needs: ['module-ci-lint', 'lint-dockerfile']
     permissions:
@@ -53,7 +53,7 @@ jobs:
 
             go test -coverprofile="$COVERAGE_REPORT" ./...
 
-            old='github.com/sebastian-sommerfeld-io/tron'
+            old='github.com/sommerfeld-io/semver'
             new='src/main/app'
             sed -i "s|$old|$new|g" "$COVERAGE_REPORT"
           )
@@ -63,13 +63,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: Build go app
-        run: |
-          (
-            cd src/main/app || exit
-            go build
-          )
-        shell: bash
+
+  ci-docker:
+    runs-on: ubuntu-latest
+    needs: ci-go-app
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Set docker tag ('ci' for main or feature branch)
         id: vars
         run: |
@@ -96,9 +100,24 @@ jobs:
           push: ${{ github.actor != 'dependabot[bot]' }}
           tags: ${{ env.IMAGE }}:${{ steps.vars.outputs.DOCKER_TAG }}
 
+  test-docker:
+    runs-on: ubuntu-latest
+    needs: ci-docker
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Test go app
+        run: |
+          echo "TODO ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ..."
+          echo "TODO ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ..."
+          echo "TODO ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ..."
+        shell: bash
+
   on-failure:
     runs-on: ubuntu-latest
-    needs: ['module-ci-lint', 'lint-dockerfile', 'ci']
+    needs: ['module-ci-lint', 'lint-dockerfile', 'ci-docker', 'ci-go-app', 'test-docker']
     if: failure()
 
     steps:

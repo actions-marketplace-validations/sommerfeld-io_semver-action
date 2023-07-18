@@ -1,3 +1,19 @@
+# ---------------------------------------------------------
+# Build
+# ---------------------------------------------------------
+FROM golang:1.20-rc-alpine AS build
+LABEL maintainer="sebastian@sommerfeld.io"
+
+COPY app /app
+WORKDIR /app
+
+RUN go mod download \
+    && go test ./... \
+    && go build .
+
+# ---------------------------------------------------------
+# Run
+# ---------------------------------------------------------
 # FROM alpine:3.18.2 AS run
 # LABEL maintainer="sebastian@sommerfeld.io"
 # 

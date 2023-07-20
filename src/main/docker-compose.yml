@@ -36,7 +36,7 @@ services:
       - /bin/sh
       - -c
       - |
-        go test ./...
+        go test -coverprofile=go-code-coverage.out ./...
 
   build:
     build: .
@@ -49,16 +49,30 @@ services:
     volumes: *volumes
     working_dir: /app
 
-  # run:
-  #   image: local/semver:dev
-  #   container_name: run
+  run-1: &run-config
+    image: local/semver:dev
+    container_name: run-1
+    depends_on:
+      build:
+        condition: service_completed_successfully
+    user: ${MY_UID}:${MY_GID}
+    command: ['/bin/sh', '-c', 'semver -h']
+  
+  run-2:
+    <<: *run-config
+    container_name: run-2
+    command: ['/bin/sh', '-c', 'semver validate']
+
+  # cleanup:
+  #   image: alpine:3.18.2
+  #   container_name: cleanup
   #   depends_on:
-  #     build:
+  #     test:
   #       condition: service_completed_successfully
   #   user: ${MY_UID}:${MY_GID}
-  #   command:
+  #   volumes: *volumes
+  #   working_dir: /app
   #     - /bin/sh
   #     - -c
   #     - |
-  #       ./semver
-  #       ./semver
+  #       rm -f go-code-coverage.out

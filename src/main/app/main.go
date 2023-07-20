@@ -1,8 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"log"
+
+	"github.com/sommerfeld-io/semver/cmd"
 )
 
 func init() {
@@ -10,6 +11,9 @@ func init() {
 }
 
 func main() {
-	fmt.Println("please implement me ...")
-	fmt.Println("turn me into a cli app with cobra ...")
+	err := cmd.Execute()
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }

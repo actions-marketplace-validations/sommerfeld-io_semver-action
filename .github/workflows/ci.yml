@@ -99,7 +99,7 @@ jobs:
       - name: Docker image build
         uses: docker/build-push-action@v4
         with:
-          context: ${{ github.workspace }}/src/main
+          context: src/main
           platforms: linux/amd64
           push: ${{ github.actor != 'dependabot[bot]' }}
           tags: ${{ env.IMAGE }}:${{ steps.vars.outputs.DOCKER_TAG }}

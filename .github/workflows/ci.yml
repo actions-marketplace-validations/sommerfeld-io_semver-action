@@ -77,7 +77,7 @@ jobs:
         run: |
           echo ${{ github.workspace }}
           echo $GITHUB_WORKSPACE
-          shell: bash
+        shell: bash
       - name: Set docker tag ('ci' for main or feature branch)
         id: vars
         run: |

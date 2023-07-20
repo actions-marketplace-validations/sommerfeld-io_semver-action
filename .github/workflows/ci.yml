@@ -73,6 +73,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: INFO
+        run: |
+          echo ${{ github.workspace }}
+          echo $GITHUB_WORKSPACE
+          shell: bash
       - name: Set docker tag ('ci' for main or feature branch)
         id: vars
         run: |
@@ -94,7 +99,7 @@ jobs:
       - name: Docker image build
         uses: docker/build-push-action@v4
         with:
-          context: src/main
+          context: ${{ github.workspace }}/src/main
           platforms: linux/amd64
           push: ${{ github.actor != 'dependabot[bot]' }}
           tags: ${{ env.IMAGE }}:${{ steps.vars.outputs.DOCKER_TAG }}

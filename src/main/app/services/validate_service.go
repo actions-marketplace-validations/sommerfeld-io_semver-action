@@ -60,7 +60,7 @@ func validateSyntax(v *version.Version) error {
 //
 // == See also
 // link:/dev-environment-config/main/development-guidelines.html[Semantic Versioning section in out Development Principles]
-func IsValid(v string) ValidationResult {
+func Validate(v string) ValidationResult {
 	result := ValidationResult{
 		Version: v,
 	}

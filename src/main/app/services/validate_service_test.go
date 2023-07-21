@@ -39,7 +39,7 @@ func Test_ShouldBeValid(t *testing.T) {
 	for _, tc := range testCases {
 		assert := assert.New(t)
 
-		got := IsValid(tc.version)
+		got := Validate(tc.version)
 
 		assert.NotNil(got)
 		assert.Empty(got.Error)
@@ -59,7 +59,7 @@ func Test_ShouldBeValid(t *testing.T) {
 // 	for _, tc := range testCases {
 // 		assert := assert.New(t)
 
-// 		got, err := IsValid(tc.version)
+// 		got, err := Validate(tc.version)
 
 // 		assert.Nil(err)
 // 		assert.NotNil(got)
@@ -101,7 +101,7 @@ func Test_ShouldCauseError(t *testing.T) {
 	for _, tc := range testCases {
 		assert := assert.New(t)
 
-		got := IsValid(tc.version)
+		got := Validate(tc.version)
 
 		assert.NotNil(got)
 		assert.NotNil(got.Error, "Expected exception because version '"+tc.version+"' should not be valid")

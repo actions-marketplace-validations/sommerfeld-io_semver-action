@@ -14,7 +14,7 @@ const JSON_FLAG = "json"
 
 func run(cmd *cobra.Command, args []string) {
 	version := args[0]
-	validationResult := services.IsValid(version)
+	validationResult := services.Validate(version)
 
 	if cmd.Flags().Lookup(JSON_FLAG).Changed {
 		bytes, err := json.Marshal(validationResult)

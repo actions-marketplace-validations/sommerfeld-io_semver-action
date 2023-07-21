@@ -7,8 +7,19 @@ import (
 	"github.com/hashicorp/go-version"
 )
 
-func handleError(err error) (bool, error) {
-	return false, err
+// This object represents the result of a semantic version validation and is returned to the user.
+// It encapsulates the outcome of the validation process, including information about whether the
+// input version is valid or not, along with potential error messages.
+type ValidationResult struct {
+	Version string `json:"version"`
+	Valid   bool   `json:"valid"`
+	Error   string `json:"error"`
+}
+
+func handleError(result ValidationResult, err error) ValidationResult {
+	result.Valid = false
+	result.Error = err.Error()
+	return result
 }
 
 func validatePrefix(v *version.Version) error {
@@ -49,25 +60,29 @@ func validateSyntax(v *version.Version) error {
 //
 // == See also
 // link:/dev-environment-config/main/development-guidelines.html[Semantic Versioning section in out Development Principles]
-func IsValid(v string) (bool, error) {
+func IsValid(v string) ValidationResult {
+	result := ValidationResult{
+		Version: v,
+	}
+
 	parsedVersion, err := version.NewVersion(v)
 	if err != nil {
-		return handleError(err)
+		return handleError(result, err)
 	}
 
 	err = validatePrefix(parsedVersion)
 	if err != nil {
-		return handleError(err)
+		return handleError(result, err)
 	}
 
 	err = validatePreRelease(parsedVersion)
 	if err != nil {
-		return handleError(err)
+		return handleError(result, err)
 	}
 
 	err = validateSyntax(parsedVersion)
 	if err != nil {
-		return handleError(err)
+		return handleError(result, err)
 	}
 
 	// constraints, err := version.NewConstraint(">= 0.0.1-alpha")
@@ -77,5 +92,6 @@ func IsValid(v string) (bool, error) {
 	// isValid := constraints.Check(parsedVersion)
 	// return isValid, nil
 
-	return true, nil
+	result.Valid = true
+	return result
 }

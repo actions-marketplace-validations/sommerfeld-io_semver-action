@@ -1,4 +1,4 @@
-package cmd
+package commands
 
 import (
 	"github.com/spf13/cobra"
@@ -8,9 +8,9 @@ import (
 func NewCmdRoot() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "semver",
-		Version: "Lorem ...",                   // TODO ... ... ...
-		Short:   "Root: Lorem ipsum ...",       // TODO ... ... ...
-		Long:    "Root: Lorem ipsum dolor ...", // TODO ... ... ...
+		Version: "Lorem ...", // TODO ... ... ...
+		Short:   "Use Semver to validate versions",
+		Long:    "Use Semver to validate versions against semantic verioning rules",
 		Args:    cobra.ExactArgs(0),
 	}
 

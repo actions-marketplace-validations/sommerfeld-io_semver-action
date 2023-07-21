@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/sommerfeld-io/semver/cmd"
+	"github.com/sommerfeld-io/semver/commands"
 )
 
 func init() {
@@ -11,7 +11,7 @@ func init() {
 }
 
 func main() {
-	err := cmd.Execute()
+	err := commands.Execute()
 
 	if err != nil {
 		log.Fatal(err)

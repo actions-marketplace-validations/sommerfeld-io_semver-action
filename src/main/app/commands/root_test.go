@@ -1,4 +1,4 @@
-package cmd
+package commands
 
 import (
 	"bytes"
@@ -10,17 +10,19 @@ import (
 )
 
 func Test_ShouldCreateCmdRoot(t *testing.T) {
-	expectedCmd := &cobra.Command{
+	expected := &cobra.Command{
 		Use:  "semver",
-		Args: cobra.ExactArgs(0),
+		Args: cobra.ExactArgs(0), // Todo: validate Args count
 	}
 
 	got := NewCmdRoot()
 	assert.NotNil(t, got)
-	assert.Equal(t, expectedCmd.Use, got.Use)
+	assert.Equal(t, expected.Use, got.Use)
 	assert.NotEmpty(t, got.Short)
 	assert.NotEmpty(t, got.Long)
 	assert.False(t, got.Runnable(), "Command should NOT be runnable")
+	assert.False(t, got.IsAvailableCommand(), "Command should be runnable")
+	// Todo: validate Args count
 }
 
 func Test_ShouldPrintHelpText(t *testing.T) {

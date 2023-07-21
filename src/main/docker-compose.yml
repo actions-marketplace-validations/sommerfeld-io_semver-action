@@ -20,7 +20,8 @@ services:
       - |
         go mod init github.com/sommerfeld-io/semver
         go mod tidy
-        go get -u github.com/spf13/cobra@latest
+        go get github.com/spf13/cobra@v1.7.0
+        go get github.com/Masterminds/semver@v1.5.0
         go fmt ./...
 
   test:
@@ -56,12 +57,17 @@ services:
       build:
         condition: service_completed_successfully
     user: ${MY_UID}:${MY_GID}
-    command: validate
+    command: validate v0.1.0
 
   run-2:
     <<: *run-config
     container_name: run-2
-    command: validate
+    command: validate v0.1.0-SNAPSHOT
+
+  run-3:
+    <<: *run-config
+    container_name: run-3
+    command: validate 0.1.0-SNAPSHOT
 
   # cleanup:
   #   image: alpine:3.18.2

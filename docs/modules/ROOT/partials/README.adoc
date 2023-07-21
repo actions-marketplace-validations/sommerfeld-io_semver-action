@@ -13,7 +13,9 @@ By incorporating the `semver-action` into the `Deploy + Release workflows` of al
 * Sonar -> https://sonarcloud.io/project/overview?id=sommerfeld-io_semver-action
 
 === About Semantic Versioning
-Semantic versions are applied in the link:https://github.com/sommerfeld-io[sommerfeld-io GitHub organization]. All Versions follow the pattern `major.minor.bugfix` for stable versions (e.g. `v0.1.2`) and `major.minor.bugfix-SNAPSHOT` for unstable versions, that are still under active development (e.g. `v0.1.2-SNAPSHOT`). The leading `v` in lowercase is mandatory
+Semantic versions are applied in the link:https://github.com/sommerfeld-io[sommerfeld-io GitHub organization]. All Versions follow the pattern `major.minor.bugfix` for stable versions (e.g. `v0.1.2`) and `major.minor.bugfix-SNAPSHOT` for unstable versions, that are still under active development (e.g. `v0.1.2-SNAPSHOT`). The leading `v` in lowercase is mandatory.
+
+See link:https://github.com/sommerfeld-io/semver-action/blob/main/src/main/app/services/validate_service_test.go[src/main/app/services/validate_service_test.go] for details on allow and forbidden version patterns.
 
 == How to use this project
 The ``semver-action`` is specifically designed as a GitHub Actions workflow action, intended to be integrated into workflows. It is specifically utilized as part of the "Deploy + Release workflows" within the link:https://github.com/sommerfeld-io[sommerfeld-io GitHub organization]. However, the Dockerfile used in this action can also be employed independently for other purposes, allowing for versatile and standalone usage beyond GitHub Actions workflows.

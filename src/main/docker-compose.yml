@@ -56,12 +56,12 @@ services:
       build:
         condition: service_completed_successfully
     user: ${MY_UID}:${MY_GID}
-    command: ['/bin/sh', '-c', 'semver -h']
+    command: validate
   
   run-2:
     <<: *run-config
     container_name: run-2
-    command: ['/bin/sh', '-c', 'semver validate']
+    command: validate
 
   # cleanup:
   #   image: alpine:3.18.2

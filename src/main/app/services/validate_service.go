@@ -11,30 +11,34 @@ func handleError(err error) (bool, error) {
 	return false, err
 }
 
-func hasValidPrefix(v *version.Version) error {
-	const VALID_PREFIX = "v"
-
-	if !strings.HasPrefix(v.Original(), VALID_PREFIX) {
-		return errors.New("must start with a leading 'v' (e.g. 'v0.1.0')")
+func validatePrefix(v *version.Version) error {
+	if strings.HasPrefix(v.Original(), "v") {
+		return nil
 	}
-	return nil
+	return errors.New("must start with a leading v: " + v.Original())
 }
 
-// Version is considered valid without a pre-release mark (e.g. `v0.1.0`) or with a correct
-// pre-release mark (e.g. `v0.1.0-SNAPSHOT`). The function returns `nil` when version is valid
-// or an error when version is invalid.
-func hasValidSuffix(v *version.Version) error {
-	const VALID_SUFFIX = "SNAPSHOT"
-
+func validatePreRelease(v *version.Version) error {
+	if strings.Contains(v.Prerelease(), "alpha") {
+		return nil
+	}
+	if strings.Contains(v.Prerelease(), "beta") {
+		return nil
+	}
 	if v.Prerelease() == "" {
 		return nil
 	}
 
-	if v.Prerelease() == VALID_SUFFIX {
+	return errors.New("invalid pre-release mark (use alpha or beta): " + v.Original())
+}
+
+func validateSyntax(v *version.Version) error {
+	dotCount := strings.Count(v.Original(), ".")
+	if dotCount == 2 || dotCount == 3 {
 		return nil
 	}
 
-	return errors.New("if version has a pre-release suffix, it must equal 'SNAPSHOT'")
+	return errors.New("invalid format (use major.minor.patch / major.minor.patch-prerelease / major.minor.patch-prerelease.counter): " + v.Original())
 }
 
 // This function validates a provided version string according to the rules of Semantic Versioning.
@@ -42,23 +46,29 @@ func hasValidSuffix(v *version.Version) error {
 // checks.
 //
 // Returns “true“ when the version string is valid and conforms to the Semantic Versioning rules.
+//
+// == See also
+// link:/dev-environment-config/main/development-guidelines.html[Semantic Versioning section in out Development Principles]
 func IsValid(_version string) (bool, error) {
 	v, err := version.NewVersion(_version)
 	if err != nil {
 		return handleError(err)
 	}
 
-	err = hasValidPrefix(v)
+	err = validatePrefix(v)
 	if err != nil {
 		return handleError(err)
 	}
 
-	err = hasValidSuffix(v)
+	err = validatePreRelease(v)
 	if err != nil {
 		return handleError(err)
 	}
 
-	// todo needs 3 digits
+	err = validateSyntax(v)
+	if err != nil {
+		return handleError(err)
+	}
 
 	c, err := version.NewConstraint(">= 0.0.1-SNAPSHOT")
 	if err != nil {

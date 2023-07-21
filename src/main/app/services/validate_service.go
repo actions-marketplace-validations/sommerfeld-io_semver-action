@@ -26,7 +26,7 @@ func validatePrefix(v *version.Version) error {
 	if strings.HasPrefix(v.Original(), "v") {
 		return nil
 	}
-	return errors.New("must start with a leading v: " + v.Original())
+	return errors.New("must start with a leading 'v'")
 }
 
 func validatePreRelease(v *version.Version) error {
@@ -40,7 +40,7 @@ func validatePreRelease(v *version.Version) error {
 		return nil
 	}
 
-	return errors.New("invalid pre-release mark (use alpha or beta): " + v.Original())
+	return errors.New("invalid pre-release mark: use 'alpha' or 'beta'")
 }
 
 func validateSyntax(v *version.Version) error {
@@ -49,7 +49,7 @@ func validateSyntax(v *version.Version) error {
 		return nil
 	}
 
-	return errors.New("invalid format (use major.minor.patch / major.minor.patch-prerelease / major.minor.patch-prerelease.counter): " + v.Original())
+	return errors.New("invalid format: use 'major.minor.patch' / 'major.minor.patch-prerelease' / 'major.minor.patch-prerelease.counter')")
 }
 
 // This function validates a provided version string according to the rules of Semantic Versioning.

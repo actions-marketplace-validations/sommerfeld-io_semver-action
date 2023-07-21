@@ -69,6 +69,11 @@ services:
     container_name: run-3
     command: validate 0.1.0-SNAPSHOT
 
+  run-4:
+    <<: *run-config
+    container_name: run-4
+    command: validate 0.1.0-SNAPSHOT --show-errors
+
   # cleanup:
   #   image: alpine:3.18.2
   #   container_name: cleanup

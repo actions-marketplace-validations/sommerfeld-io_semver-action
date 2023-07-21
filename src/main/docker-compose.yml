@@ -57,7 +57,7 @@ services:
         condition: service_completed_successfully
     user: ${MY_UID}:${MY_GID}
     command: validate
-  
+
   run-2:
     <<: *run-config
     container_name: run-2

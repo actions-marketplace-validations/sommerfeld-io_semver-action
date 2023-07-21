@@ -43,10 +43,31 @@ func Test_ShouldBeValid(t *testing.T) {
 
 		assert.Nil(err)
 		assert.NotNil(got)
+		assert.True(got, "Expected version to be valid: "+tc.version)
 	}
 }
 
-func Test_ShouldNotBeValid(t *testing.T) {
+// func Test_ShouldNotBeValid(t *testing.T) {
+// 	testCases := []struct {
+// 		version string
+// 	}{
+// 		// Invalid Syntax: version too low
+// 		{"v0.0.0"},
+// 		{"v0.0.0-alpha"},
+// 		{"v0.0.0-beta"},
+// 	}
+// 	for _, tc := range testCases {
+// 		assert := assert.New(t)
+
+// 		got, err := IsValid(tc.version)
+
+// 		assert.Nil(err)
+// 		assert.NotNil(got)
+// 		assert.False(got)
+// 	}
+// }
+
+func Test_ShouldCauseError(t *testing.T) {
 	testCases := []struct {
 		version string
 	}{

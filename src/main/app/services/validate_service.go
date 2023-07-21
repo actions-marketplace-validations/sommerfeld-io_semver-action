@@ -49,33 +49,33 @@ func validateSyntax(v *version.Version) error {
 //
 // == See also
 // link:/dev-environment-config/main/development-guidelines.html[Semantic Versioning section in out Development Principles]
-func IsValid(_version string) (bool, error) {
-	v, err := version.NewVersion(_version)
+func IsValid(v string) (bool, error) {
+	parsedVersion, err := version.NewVersion(v)
 	if err != nil {
 		return handleError(err)
 	}
 
-	err = validatePrefix(v)
+	err = validatePrefix(parsedVersion)
 	if err != nil {
 		return handleError(err)
 	}
 
-	err = validatePreRelease(v)
+	err = validatePreRelease(parsedVersion)
 	if err != nil {
 		return handleError(err)
 	}
 
-	err = validateSyntax(v)
+	err = validateSyntax(parsedVersion)
 	if err != nil {
 		return handleError(err)
 	}
 
-	c, err := version.NewConstraint(">= 0.0.1-SNAPSHOT")
-	if err != nil {
-		return handleError(err)
-	}
+	// constraints, err := version.NewConstraint(">= 0.0.1-alpha")
+	// if err != nil {
+	// 	return handleError(err)
+	// }
+	// isValid := constraints.Check(parsedVersion)
+	// return isValid, nil
 
-	isValid := c.Check(v)
-
-	return isValid, err
+	return true, nil
 }

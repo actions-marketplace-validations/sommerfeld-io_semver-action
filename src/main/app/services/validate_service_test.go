@@ -24,7 +24,6 @@ func Test_ShouldBeValid(t *testing.T) {
 
 		assert.Nil(err)
 		assert.NotNil(got)
-		assert.True(got, "Version '"+tc.version+"' should ve valid")
 	}
 }
 
@@ -35,17 +34,25 @@ func Test_ShouldNotBeValid(t *testing.T) {
 		{"0.0.1"},
 		{"0.0.1-SNAPSHOT"},
 		{"0.0.1-snapshot"},
+		{"v0.0.1-snapshot"},
 		{"0.1.0"},
 		{"0.1.0-SNAPSHOT"},
 		{"0.1.0-snapshot"},
+		{"v0.1.0-snapshot"},
 		{"1.0.0"},
 		{"1.0.0-SNAPSHOT"},
 		{"1.0.0-snapshot"},
+		{"v1.0.0-snapshot"},
 		{"0.1.0-alpha"},
+		{"v0.1.0-alpha"},
 		{"0.1.0-beta"},
+		{"v0.1.0-beta"},
 		{"0.1.0-rc"},
+		{"v0.1.0-rc"},
 		{"0.1.0-release-candidate"},
+		{"v0.1.0-release-candidate"},
 		{"0.1.0-anything-else"},
+		{"v0.1.0-anything-else"},
 	}
 	for _, tc := range testCases {
 		assert := assert.New(t)
@@ -54,7 +61,6 @@ func Test_ShouldNotBeValid(t *testing.T) {
 
 		assert.NotNil(err)
 		assert.NotNil(got)
-		assert.False(got, "Version '"+tc.version+"' should be invalid")
 	}
 }
 

@@ -2,62 +2,70 @@ package services
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 
-	"github.com/Masterminds/semver"
+	"github.com/hashicorp/go-version"
 )
 
-func handleNotParsableError(err error) (bool, error) {
+func handleError(err error) (bool, error) {
 	return false, err
 }
 
-func hasValidPrefix(version *semver.Version) bool {
-	validPrefix := "v"
-	return strings.HasPrefix(version.Original(), validPrefix)
+func hasValidPrefix(v *version.Version) error {
+	const VALID_PREFIX = "v"
+
+	if !strings.HasPrefix(v.Original(), VALID_PREFIX) {
+		return errors.New("must start with a leading 'v' (e.g. 'v0.1.0')")
+	}
+	return nil
 }
 
-func hasValidSuffix(version *semver.Version) bool {
-	if version.Prerelease() == "" {
-		return true
+// Version is considered valid without a pre-release mark (e.g. `v0.1.0`) or with a correct
+// pre-release mark (e.g. `v0.1.0-SNAPSHOT`). The function returns `nil` when version is valid
+// or an error when version is invalid.
+func hasValidSuffix(v *version.Version) error {
+	const VALID_SUFFIX = "SNAPSHOT"
+
+	if v.Prerelease() == "" {
+		return nil
 	}
 
-	return version.Prerelease() == "SNAPSHOT"
-}
-
-func printErrorMessages(msgs []error) {
-	for _, msg := range msgs {
-		fmt.Println(msg)
+	if v.Prerelease() == VALID_SUFFIX {
+		return nil
 	}
+
+	return errors.New("if version has a pre-release suffix, it must equal 'SNAPSHOT'")
 }
 
 // This function validates a provided version string according to the rules of Semantic Versioning.
-// Actual validations are done by https://github.com/Masterminds/semver package.
+// Actual validations are done by https://github.com/hashicorp/go-version package and by some custom
+// checks.
 //
 // Returns “true“ when the version string is valid and conforms to the Semantic Versioning rules.
-func IsValid(version string) (bool, error) {
-	v, err := semver.NewVersion(version)
+func IsValid(_version string) (bool, error) {
+	v, err := version.NewVersion(_version)
 	if err != nil {
-		return handleNotParsableError(err)
+		return handleError(err)
 	}
 
-	isValid := hasValidPrefix(v)
-	if !isValid {
-		return isValid, errors.New("must start with a leading 'v' (e.g. 'v0.1.0')")
-	}
-
-	isValid = hasValidSuffix(v)
-	if !isValid {
-		return isValid, errors.New("if version has a pre-release suffix, it must equal 'SNAPSHOT'")
-	}
-
-	c, err := semver.NewConstraint(">= 0.0.1-SNAPSHOT")
+	err = hasValidPrefix(v)
 	if err != nil {
-		return handleNotParsableError(err)
+		return handleError(err)
 	}
 
-	isValid, msgs := c.Validate(v)
-	printErrorMessages(msgs)
+	err = hasValidSuffix(v)
+	if err != nil {
+		return handleError(err)
+	}
+
+	// todo needs 3 digits
+
+	c, err := version.NewConstraint(">= 0.0.1-SNAPSHOT")
+	if err != nil {
+		return handleError(err)
+	}
+
+	isValid := c.Check(v)
 
 	return isValid, err
 }

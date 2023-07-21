@@ -21,7 +21,7 @@ services:
         go mod init github.com/sommerfeld-io/semver
         go mod tidy
         go get github.com/spf13/cobra@v1.7.0
-        go get github.com/Masterminds/semver@v1.5.0
+        go get github.com/hashicorp/go-version@v1.6.0
         go fmt ./...
 
   test:
@@ -73,6 +73,11 @@ services:
     <<: *run-config
     container_name: run-4
     command: validate 0.1.0-SNAPSHOT --show-errors
+
+  run-5:
+    <<: *run-config
+    container_name: run-5
+    command: validate v0.1-SNAPSHOT --show-errors
 
   # cleanup:
   #   image: alpine:3.18.2

@@ -21,7 +21,7 @@
 # == Prerequisites
 #
 # The only prerequisite is a working a Docker installation. Docker compose is shipped alongside Docker. It
-# has been developd and tested with Docker version 24.0.2 on top of Ubuntu 22.10. With Docker installed,
+# has been developed and tested with Docker version 24.0.2 on top of Ubuntu 22.10. With Docker installed,
 # users can execute the script to build and test the Semver Docker image without any additional dependencies.
 
 set -o errexit

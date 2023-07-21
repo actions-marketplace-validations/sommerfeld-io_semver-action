@@ -8,7 +8,7 @@ import (
 func NewCmdRoot() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "semver",
-		Version: "Lorem ...", // TODO ... ... ...
+		Version: "Lorem ...", // TODO https://github.com/sommerfeld-io/semver-action/issues/4
 		Short:   "Use Semver to validate versions",
 		Long:    "Use Semver to validate versions against semantic verioning rules",
 		Args:    cobra.ExactArgs(0),

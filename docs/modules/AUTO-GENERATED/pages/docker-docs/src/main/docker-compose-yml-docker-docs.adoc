@@ -23,5 +23,5 @@ phases.
 
 == See also
 
-To run this Compose config, use xref:AUTO-GENERATED:bash-docs/src/main/semver-sh.adoc[`src/main/semver.sh`]
-bash script.
+* For the custom Docker image, see xref:AUTO-GENERATED:docker-docs/src/main/Dockerfile-docker-docs.adoc[`src/main/Dockerfile`]
+* To run this Compose config, use xref:AUTO-GENERATED:bash-docs/src/main/semver-sh.adoc[`src/main/semver.sh`] bash script.

@@ -37,3 +37,8 @@ image.
 The only prerequisite is a working a Docker installation. Docker compose is shipped alongside Docker. It
 has been developed and tested with Docker version 24.0.2 on top of Ubuntu 22.10. With Docker installed,
 users can execute the script to build and test the Semver Docker image without any additional dependencies.
+
+== See also
+
+* For the custom Docker image, see xref:AUTO-GENERATED:docker-docs/src/main/dockerfile-docker-docs.adoc[`src/main/Dockerfile`]
+* For the compose config, that orchestrates the local build process, see xref:AUTO-GENERATED:docker-docs/src/main/docker-compose-yml-docker-docs.adoc[`src/main/docker-compose.yml`]

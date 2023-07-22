@@ -35,14 +35,19 @@ and `docker run --rm local/semver:dev`.
 
 This image has been developed and tested with Docker version 24.0.2 on top of Ubuntu 22.10.
 
-== Stage `build`
+== Stage 1: `build`
 
 In the `build` stage, the application's source code is copied into the Docker image, and the
 binary is then built from the Go sources. The link:https://hub.docker.com/_/golang[`golang`]
 image is utilized, which is based on Apline Linux and comes pre-configured with all the necessary
 tools for compiling Go applications. Nno extra software is installed.
 
-== Stage `run`
+== Stage 2: `run`
 
 In the `run` stage, the `semver` binary is copied from the `build` stage and serves as the
 entry point for the Docker image. The base image used for this stage is link:https://hub.docker.com/_/alpine[Alpine].
+
+== See also
+
+* For the compose config, that orchestrates the local build process, see xref:AUTO-GENERATED:docker-docs/src/main/docker-compose-yml-docker-docs.adoc[`src/main/docker-compose.yml`]
+* To run this Compose config, use xref:AUTO-GENERATED:bash-docs/src/main/semver-sh.adoc[`src/main/semver.sh`] bash script.

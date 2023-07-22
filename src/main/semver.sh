@@ -3,9 +3,10 @@
 # @brief Build, test and run the semver app and Docker image locally.
 #
 # @description This script is designed to build and test the Semver Docker image using Docker Compose. It
-# performs a series of essential steps, including initializing Go modules, running Go tests, building the
-# binary from the Go app, and creating the Docker image with the binary. Additionally, the script executes
-# tests within several containers to ensure the functionality of the Docker image.
+# starts a Docker Compose Stack that performs a series of essential steps, including initializing Go modules,
+# running Go tests, building the binary from the Go app, and creating the Docker image with the binary.
+# Additionally, the script executes tests within several containers to ensure the functionality of the Docker
+# image. 
 #
 # === Script Arguments
 #

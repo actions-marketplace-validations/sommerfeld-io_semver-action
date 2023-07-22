@@ -1,2 +1,2 @@
 * `xref:AUTO-GENERATED:docker-docs/src/main/dockerfile-docker-docs.adoc[src/main/Dockerfile]`
-* `xref:AUTO-GENERATED:docker-docs/src/main/docker-compose-yml-docker-docs.adoc[src/main/docker-compose-yml]`
+* `xref:AUTO-GENERATED:docker-docs/src/main/docker-compose-yml-docker-docs.adoc[src/main/docker-compose.yml]`

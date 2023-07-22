@@ -7,7 +7,7 @@
 # the binary from the Go sources, testing the Go app, creating the Docker image ``local/semver:dev``
 # that encapsulates the binary, and running tests against a container that uses this image. This
 # allows developers to focus on their code and rapidly iterate during the development and testing
-# phases. 
+# phases.
 #
 # == See also
 #

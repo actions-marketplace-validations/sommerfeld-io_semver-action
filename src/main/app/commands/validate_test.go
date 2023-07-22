@@ -21,4 +21,5 @@ func Test_ShouldCreateCmdValidate(t *testing.T) {
 	assert.True(t, got.Runnable(), "Command should be runnable")
 	assert.True(t, got.IsAvailableCommand(), "Command should be runnable")
 	// Todo: validate Args count
+	// Todo: all mandatory flags present?
 }

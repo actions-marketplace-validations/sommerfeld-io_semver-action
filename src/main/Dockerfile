@@ -10,6 +10,7 @@
 # running the binary in minimalistic linux environment.
 #
 # === Environment Variables
+#
 # Inputs, that are defined in the ``action.yml``, are available as environment variables.
 # Environment variables are prefixed with ``INPUT``. So the input param ``command`` becomes
 # the environment variable ``$INPUT_COMMAND``.

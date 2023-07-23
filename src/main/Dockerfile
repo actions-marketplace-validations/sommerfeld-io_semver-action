@@ -9,9 +9,12 @@
 # This is a Multistage Dockerfile that separates building the binary for Go application from
 # running the binary in minimalistic linux environment.
 #
-# === Arguments
+# === Environment Variables
+# Inputs, that are defined in the ``action.yml``, are available as environment variables.
+# Environment variables are prefixed with ``INPUT``. So the input param ``command`` becomes
+# the environment variable ``$INPUT_COMMAND``.
 #
-# * *ACTION_COMMAND* (string): This is the command string passed from the Github Action. Can be
+# * *INPUT_COMMAND* (string): This is the command string passed from the Github Action. Can be
 # empty. When running this image inside a Github Action workflow this param probably won't be
 # empty because otherwise only the applications help is printed and no validations take place.
 # When running this image standalone, this param is empty and allows you to pass your own commands
@@ -48,9 +51,6 @@
 # * To run this Compose config, use xref:AUTO-GENERATED:bash-docs/src/main/semver-sh.adoc[``src/main/semver.sh``] bash script.
 
 
-ARG ACTION_COMMAND="$@"
-
-
 FROM golang:1.20-rc-alpine AS build
 LABEL maintainer="sebastian@sommerfeld.io"
 
@@ -71,4 +71,4 @@ ARG USER=semver
 RUN adduser -D $USER
 
 USER $USER
-ENTRYPOINT [ "/usr/bin/semver" ]
+ENTRYPOINT [ "/usr/bin/semver $INPUT_COMMAND" ]

@@ -1,6 +1,6 @@
 ---
 name: Semantic Version Github Action
-description: Github Action to adjust version information in antora.yml depending on current branch or version tag.
+description: Github Action to streamline Release Workflows with Semantic Version Validation for Accurate and Consistent Versioning
 inputs:
   command:
     description: The semver command that should be run

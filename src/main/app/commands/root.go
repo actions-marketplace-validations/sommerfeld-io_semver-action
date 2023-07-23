@@ -11,8 +11,8 @@ func NewCmdRoot() *cobra.Command {
 		Version: "Lorem ...", // TODO https://github.com/sommerfeld-io/semver-action/issues/4
 		Short:   "Validate versions against the rules of Semantic Versioning",
 		Long: `The semver application validates versions against the rules of Semantic Versioning.
-		Semantic Versioning is a standardized versioning system to communicate changes in a clear and
-		consistent manner.`,
+Semantic Versioning is a standardized versioning system to communicate changes in a clear and
+consistent manner.`,
 		Args: cobra.ExactArgs(0),
 	}
 

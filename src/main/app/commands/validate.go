@@ -31,8 +31,14 @@ func runValidate(w io.Writer, args []string, asJson bool) {
 			log.Fatal(err)
 		}
 		fmt.Fprintln(w, string(bytes))
+		if !validationResult.Valid {
+			os.Exit(1)
+		}
 	} else {
 		fmt.Fprintln(w, validationResult.Valid)
+		if !validationResult.Valid {
+			os.Exit(1)
+		}
 	}
 }
 

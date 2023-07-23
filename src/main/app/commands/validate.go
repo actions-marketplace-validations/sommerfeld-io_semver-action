@@ -42,8 +42,8 @@ func runValidate(w io.Writer, args []string, asJson bool) bool {
 func NewCmdValidate() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "validate",
-		Short: "Validate given version string, returns true or false",
-		Long:  "Validate given version string against semantic versioning rules, returns true if version is valid, false if version does not comply with rules for sommerfeld-io projects",
+		Short: "Validate a given version string",
+		Long:  "Validate a given version string against semantic versioning rules, returns true if version is valid and false if version does not comply with rules for sommerfeld-io projects",
 		Args:  cobra.ExactArgs(1),
 
 		Run: func(cmd *cobra.Command, args []string) {

@@ -4,6 +4,7 @@ description: Github Action to adjust version information in antora.yml depending
 inputs:
   command:
     description: The semver command that should be run
+    default: ""
     required: true
 runs:
   using: 'docker'

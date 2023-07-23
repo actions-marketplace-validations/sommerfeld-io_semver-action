@@ -38,7 +38,7 @@ jobs:
       - name: Validate version
         uses: sommerfeld-io/semver-action@main
         with:
-          command: ${{ github.event.inputs.version }}
+          command: validate ${{ github.event.inputs.version }}
 
   update-version:
     runs-on: ubuntu-latest

@@ -9,6 +9,14 @@
 # This is a Multistage Dockerfile that separates building the binary for Go application from
 # running the binary in minimalistic linux environment.
 #
+# === Arguments
+#
+# * *ACTION_COMMAND* (string): This is the command string passed from the Github Action. Can be
+# empty. When running this image inside a Github Action workflow this param probably won't be
+# empty because otherwise only the applications help is printed and no validations take place.
+# When running this image standalone, this param is empty and allows you to pass your own commands
+# through the command line.
+#
 # === Example
 #
 # For standalone usage of the Docker image, run ``docker run --rm local/semver:dev`` (showing the
@@ -38,6 +46,10 @@
 #
 # * For the compose config, that orchestrates the local build process, see xref:AUTO-GENERATED:docker-docs/src/main/docker-compose-yml-docker-docs.adoc[``src/main/docker-compose.yml``]
 # * To run this Compose config, use xref:AUTO-GENERATED:bash-docs/src/main/semver-sh.adoc[``src/main/semver.sh``] bash script.
+
+
+ARG ACTION_COMMAND="$@"
+
 
 FROM golang:1.20-rc-alpine AS build
 LABEL maintainer="sebastian@sommerfeld.io"

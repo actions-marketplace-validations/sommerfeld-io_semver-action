@@ -3,7 +3,7 @@ name: Deploy + Release
 
 on:
   workflow_dispatch:
-    # If the version is a v0.1.2-SNAPSHOT, only this tag is
+    # If the version is a v0.1.2-alpha or v0.1.2-beta, only this tag is
     # published and latest remains unchanged.
     inputs:
       version:
@@ -33,10 +33,12 @@ jobs:
           echo "Tag with version = ${{ github.event.inputs.version }}"
           echo "Publish Artifacts = ${{ github.event.inputs.publish }}"
         shell: bash
-      - name: Checkout code
-        uses: actions/checkout@v3
-      # todo ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...
-      # todo ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...
+      # - name: Checkout code
+      #   uses: actions/checkout@v3
+      - name: Validate version
+        uses: sommerfeld-io/semver-action@main
+        with:
+          version: ${{ github.event.inputs.version }}
 
   update-version:
     runs-on: ubuntu-latest
@@ -90,7 +92,7 @@ jobs:
           docker tag "$IMAGE:ci" "$IMAGE:latest"
           docker tag "$IMAGE:ci" "$IMAGE:$VERSION_TAG"
 
-          if [[ "${{ github.event.inputs.version }}" != *"-SNAPSHOT"* ]]; then
+          if [[ "${{ github.event.inputs.version }}" != *"-alpha"* && "${{ github.event.inputs.version }}" != *"-beta"* ]]; then
             docker push "$IMAGE:latest"
           fi
           docker push "$IMAGE:$VERSION_TAG"
@@ -106,7 +108,7 @@ jobs:
           VERSION_TAG="${{ github.event.inputs.version }}"
           VERSION_TAG="${VERSION_TAG:1}"
 
-          if [[ "${{ github.event.inputs.version }}" != *"-SNAPSHOT"* ]]; then
+          if [[ "${{ github.event.inputs.version }}" != *"-alpha"* && "${{ github.event.inputs.version }}" != *"-beta"* ]]; then
             docker pull "$IMAGE:latest"
           fi
           docker pull "$IMAGE:$VERSION_TAG"
@@ -148,7 +150,7 @@ jobs:
         # If a matching git tag does not yet exist, it will automatically get created
         # from the latest state of the default branch.
         run: |
-          if [[ "${{ github.event.inputs.version }}" != *"-SNAPSHOT"* ]]; then
+          if [[ "${{ github.event.inputs.version }}" != *"-alpha"* && "${{ github.event.inputs.version }}" != *"-beta"* ]]; then
             gh release create "${{ github.event.inputs.version }}" --generate-notes
           else
             gh release create "${{ github.event.inputs.version }}" --prerelease --generate-notes

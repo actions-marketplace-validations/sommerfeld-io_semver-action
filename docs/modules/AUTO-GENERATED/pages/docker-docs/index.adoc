@@ -9,7 +9,7 @@
 // |                                                 |
 // +-------------------------------------------------+
 
-Dockerfile documentation is done inline using the documentation pattern from `link:https://github.com/reconquest/shdoc[shdoc]`. Although `shdoc` does not officially support Dockerfiles, it still works because both file types use the same comment-style (`#`). However with Docerfiles it is only possible to document the whole file itself (since Dockerfiles do not support functions like bash scripts). These docs pages describing Dockerfiles are auto-generated from a pipeline using `shdoc`.
+Dockerfile documentation is done inline using the documentation pattern from `link:https://github.com/reconquest/shdoc[shdoc]`. Although `shdoc` does not officially support Dockerfiles, it still works because both file types use the same comment-style (`#`). However with Dockerfiles it is only possible to document the whole file itself (since Dockerfiles do not support functions like bash scripts). These docs pages describing Dockerfiles are auto-generated from a pipeline using `shdoc`.
 
 // +-------------------------------------------------+
 // |                                                 |

@@ -16,7 +16,7 @@ Sebastian Sommerfeld <sebastian@sommerfeld.io>
 // |                                          |
 // +------------------------------------------+
 
-Streamline Release Workflows with Semantic Version Validation for Accurate and Consistent Versioning!
+Github Action to streamline Release workflows with Semantic Version validation for accurate and consistent versioning.
 
 image:{github-actions-url}/{job-generate-docs}/{badge}[Github Badge, link={github-actions-url}/{job-generate-docs}]
 image:{github-actions-url}/{job-ci}/{badge}[Github Badge, link={github-actions-url}/{job-ci}]

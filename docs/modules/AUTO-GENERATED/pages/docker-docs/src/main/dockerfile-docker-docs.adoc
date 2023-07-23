@@ -24,9 +24,12 @@ managing and handling all tasks related to semantic versions.
 This is a Multistage Dockerfile that separates building the binary for Go application from
 running the binary in minimalistic linux environment.
 
-=== Arguments
+=== Environment Variables
+Inputs, that are defined in the `action.yml`, are available as environment variables.
+Environment variables are prefixed with `INPUT`. So the input param `command` becomes
+the environment variable `$INPUT_COMMAND`.
 
-* _ACTION_COMMAND_ (string): This is the command string passed from the Github Action. Can be
+* _INPUT_COMMAND_ (string): This is the command string passed from the Github Action. Can be
 empty. When running this image inside a Github Action workflow this param probably won't be
 empty because otherwise only the applications help is printed and no validations take place.
 When running this image standalone, this param is empty and allows you to pass your own commands

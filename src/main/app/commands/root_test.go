@@ -10,40 +10,52 @@ import (
 )
 
 func Test_ShouldCreateCmdRoot(t *testing.T) {
+	assert := assert.New(t)
+
 	expected := &cobra.Command{
-		Use:  "semver",
-		Args: cobra.ExactArgs(0), // Todo: validate Args count
+		Use:    "semver",
+		Args:   cobra.ExactArgs(0),
+		Hidden: false,
 	}
 
 	got := NewCmdRoot()
-	assert.NotNil(t, got)
-	assert.Equal(t, expected.Use, got.Use)
-	assert.NotEmpty(t, got.Short)
-	assert.NotEmpty(t, got.Long)
-	assert.False(t, got.Runnable(), "Command should NOT be runnable")
-	assert.False(t, got.IsAvailableCommand(), "Command should be runnable")
-	// Todo: validate Args count
+
+	assert.NotNil(got)
+	assert.Equal(expected.Use, got.Use)
+	assert.Equal(expected.Hidden, got.Hidden)
+	assert.NotEmpty(got.Short)
+	assert.NotEmpty(got.Long)
+	assert.False(got.Runnable(), "Command should NOT be runnable")
+	assert.False(got.IsAvailableCommand(), "Command should be runnable")
+
+	assert.False(got.HasFlags(), "Should NOT have flags")
+	assert.False(got.HasAvailableFlags(), "Should NOT have flags, that are not hidden or deprecated")
+	assert.False(got.Flags().HasFlags(), "Should NOT have flags")
+	assert.False(got.Flags().HasAvailableFlags(), "Should NOT have flags, that are not hidden")
+
 }
 
 func Test_ShouldPrintHelpText(t *testing.T) {
+	assert := assert.New(t)
+
 	got := NewCmdRoot()
 	outputStream := bytes.NewBufferString("")
 	got.SetOut(outputStream)
 	got.SetErr(outputStream)
 
-	assert.NotNil(t, got)
+	assert.NotNil(got)
 
 	err := got.Execute()
-	assert.Nil(t, err)
+	assert.Nil(err)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	out, err := io.ReadAll(outputStream)
-	assert.Nil(t, err)
+	assert.Nil(err)
 	if err != nil {
 		t.Fatal(err)
 	}
-	assert.NotEmpty(t, string(out))
-	assert.Contains(t, string(out), got.Long)
+	assert.NotEmpty(string(out))
+	assert.Contains(string(out), got.Long)
 }

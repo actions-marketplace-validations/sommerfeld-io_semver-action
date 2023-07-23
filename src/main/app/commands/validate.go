@@ -12,6 +12,10 @@ import (
 // Flag to determine if the output should be human readable plain text or JSON
 const JSON_FLAG = "json"
 
+func addFlags(cmd *cobra.Command) {
+	cmd.Flags().Bool(JSON_FLAG, false, "return result as json with error message if validation fails")
+}
+
 func run(cmd *cobra.Command, args []string) {
 	version := args[0]
 	validationResult := services.Validate(version)
@@ -40,7 +44,7 @@ func NewCmdValidate() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().Bool(JSON_FLAG, false, "return result as json with error message if validation fails")
+	addFlags(cmd)
 
 	return cmd
 }

@@ -62,7 +62,7 @@ RUN go mod download \
     && go build .
 
 
-FROM alpine:3.18.0 AS run
+FROM alpine:3.18.2 AS run
 LABEL maintainer="sebastian@sommerfeld.io"
 
 COPY --from=build app/semver /usr/bin/semver

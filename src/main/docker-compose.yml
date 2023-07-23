@@ -1,0 +1,123 @@
+---
+# @file docker-compose.yml
+# @brief Docker Compose config to streamline building and running the semver application locally.
+#
+# @description The provided Docker Compose configuration streamlines the development process of the
+# Docker image used for the GitHub Action. It automates several essential tasks, including building
+# the binary from the Go sources, testing the Go app, creating the Docker image ``local/semver:dev``
+# that encapsulates the binary, and running tests against a container that uses this image. This
+# allows developers to focus on their code and rapidly iterate during the development and testing
+# phases.
+#
+# == See also
+#
+# * For the custom Docker image, see xref:AUTO-GENERATED:docker-docs/src/main/dockerfile-docker-docs.adoc[``src/main/Dockerfile``]
+# * To run this Compose config, use xref:AUTO-GENERATED:bash-docs/src/main/semver-sh.adoc[``src/main/semver.sh``] bash script.
+version: "3.3"
+services:
+
+  init:
+    image: golang:1.20.6-alpine3.18
+    container_name: init
+    user: ${MY_UID}:${MY_GID}
+    volumes: &volumes
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - /home/${MY_USERNAME}/.cache:/home/${MY_USERNAME}/.cache:rw #? ?????????????
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./app:/app
+    working_dir: /app
+    command:
+      - /bin/sh
+      - -c
+      - |
+        go mod init github.com/sommerfeld-io/semver
+        go mod tidy
+        go get github.com/spf13/cobra@v1.7.0
+        go get github.com/hashicorp/go-version@v1.6.0
+        go fmt ./...
+
+  test:
+    image: golang:1.20.6-alpine3.18
+    container_name: test
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    user: ${MY_UID}:${MY_GID}
+    volumes: *volumes
+    working_dir: /app
+    command:
+      - /bin/sh
+      - -c
+      - |
+        go test -coverprofile=go-code-coverage.out ./...
+
+  build:
+    build: .
+    image: local/semver:dev
+    container_name: build
+    depends_on:
+      test:
+        condition: service_completed_successfully
+    user: ${MY_UID}:${MY_GID}
+    volumes: *volumes
+    working_dir: /app
+
+  run-1: &run-config
+    image: local/semver:dev
+    container_name: run-1
+    depends_on:
+      build:
+        condition: service_completed_successfully
+    user: ${MY_UID}:${MY_GID}
+    command: validate v0.1.0
+
+  run-2:
+    <<: *run-config
+    container_name: run-2
+    command: validate v0.1.0-alpha.0
+
+  run-3:
+    <<: *run-config
+    container_name: run-3
+    command: validate v0.1.0-beta.0
+
+  run-4:
+    <<: *run-config
+    container_name: run-4
+    command: validate v0.1.0-beta.0 --json
+
+  run-5:
+    <<: *run-config
+    container_name: run-5
+    command: validate 0.1.0-beta.0 --json
+
+  run-6:
+    <<: *run-config
+    container_name: run-6
+    command: validate v0.1.0-SNAPSHOT --json
+
+  run-7:
+    <<: *run-config
+    container_name: run-7
+    command: validate v0.1 --json
+
+  run-8:
+    <<: *run-config
+    container_name: run-8
+    command: validate v0.1-SNAPSHOT --json
+
+  # cleanup:
+  #   image: alpine:3.18.2
+  #   container_name: cleanup
+  #   depends_on:
+  #     test:
+  #       condition: service_completed_successfully
+  #   user: ${MY_UID}:${MY_GID}
+  #   volumes: *volumes
+  #   working_dir: /app
+  #     - /bin/sh
+  #     - -c
+  #     - |
+  #       rm -f go-code-coverage.out

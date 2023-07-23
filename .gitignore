@@ -19,6 +19,6 @@ tfplan
 *.user
 *.secret
 
-# Antora UI bundle
-src/main/ui/build
-src/main/ui/public
+# semver
+src/main/app/semver
+src/main/app/go-code-coverage.out

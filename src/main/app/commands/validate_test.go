@@ -52,12 +52,13 @@ func Test_ShouldPrintPlainResult(t *testing.T) {
 		assert := assert.New(t)
 
 		var output bytes.Buffer
-		runValidate(&output, tc.args, false)
+		valid := runValidate(&output, tc.args, false)
 
 		resultString := strings.ReplaceAll(output.String(), "\n", "")
 		result, err := strconv.ParseBool(resultString)
 
 		assert.Nil(err)
+		assert.Equal(tc.shouldBeValid, valid, "Version "+tc.args[0])
 		assert.Equal(tc.shouldBeValid, result, "Version "+tc.args[0])
 	}
 }
@@ -74,7 +75,7 @@ func Test_ShouldPrintJsonResult(t *testing.T) {
 		assert := assert.New(t)
 
 		var output bytes.Buffer
-		runValidate(&output, tc.args, true)
+		valid := runValidate(&output, tc.args, true)
 
 		assert.NotNil(output, "Should get json result")
 
@@ -82,6 +83,7 @@ func Test_ShouldPrintJsonResult(t *testing.T) {
 		err := json.Unmarshal(output.Bytes(), result)
 
 		assert.Nil(err)
+		assert.Equal(tc.shouldBeValid, valid, "Version "+tc.args[0])
 		assert.Equal(tc.args[0], result.Version, "Versions should be the same")
 		assert.Equal(tc.shouldBeValid, result.Valid, "Version "+tc.args[0])
 

@@ -2,10 +2,12 @@ package commands
 
 import (
 	"bytes"
+	"encoding/json"
 	"strconv"
 	"strings"
 	"testing"
 
+	"github.com/sommerfeld-io/semver/services"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 )
@@ -39,17 +41,54 @@ func Test_ShouldCreateCmdValidate(t *testing.T) {
 }
 
 func Test_ShouldPrintPlainResult(t *testing.T) {
-	assert := assert.New(t)
+	testCases := []struct {
+		args          []string
+		shouldBeValid bool
+	}{
+		{[]string{"v0.1.0"}, true},
+		{[]string{"0.1.0"}, false},
+	}
+	for _, tc := range testCases {
+		assert := assert.New(t)
 
-	var output bytes.Buffer
-	cmd := NewCmdValidate()
-	args := []string{"v0.1.0"}
+		var output bytes.Buffer
+		runValidate(&output, tc.args, false)
 
-	runValidate(&output, cmd, args)
+		resultString := strings.ReplaceAll(output.String(), "\n", "")
+		result, err := strconv.ParseBool(resultString)
 
-	resultString := strings.ReplaceAll(output.String(), "\n", "")
-	result, err := strconv.ParseBool(resultString)
+		assert.Nil(err)
+		assert.Equal(tc.shouldBeValid, result, "Version "+tc.args[0])
+	}
+}
 
-	assert.Nil(err)
-	assert.True(result)
+func Test_ShouldPrintJsonResult(t *testing.T) {
+	testCases := []struct {
+		args          []string
+		shouldBeValid bool
+	}{
+		{[]string{"v0.1.0"}, true},
+		{[]string{"0.1.0"}, false},
+	}
+	for _, tc := range testCases {
+		assert := assert.New(t)
+
+		var output bytes.Buffer
+		runValidate(&output, tc.args, true)
+
+		assert.NotNil(output, "Should get json result")
+
+		result := &services.ValidationResult{}
+		err := json.Unmarshal(output.Bytes(), result)
+
+		assert.Nil(err)
+		assert.Equal(tc.args[0], result.Version, "Versions should be the same")
+		assert.Equal(tc.shouldBeValid, result.Valid, "Version "+tc.args[0])
+
+		if tc.shouldBeValid {
+			assert.Empty(result.Error, "Version should be valid, so error message should be empty")
+		} else {
+			assert.NotEmpty(result.Error, "Version should NOT be valid, so error message should NOT be empty")
+		}
+	}
 }

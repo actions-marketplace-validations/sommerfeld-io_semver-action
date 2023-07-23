@@ -21,11 +21,11 @@ func addFlags(cmd *cobra.Command) {
 	cmd.Flags().Bool(JSON_FLAG, false, "return result as json with error message if validation fails")
 }
 
-func runValidate(w io.Writer, cmd *cobra.Command, args []string) {
+func runValidate(w io.Writer, args []string, asJson bool) {
 	version := args[0]
 	validationResult := services.Validate(version)
 
-	if cmd.Flags().Lookup(JSON_FLAG).Changed {
+	if asJson {
 		bytes, err := json.Marshal(validationResult)
 		if err != nil {
 			log.Fatal(err)
@@ -45,7 +45,8 @@ func NewCmdValidate() *cobra.Command {
 		Args:  cobra.ExactArgs(1),
 
 		Run: func(cmd *cobra.Command, args []string) {
-			runValidate(W, cmd, args)
+			asJson := cmd.Flags().Lookup(JSON_FLAG).Changed
+			runValidate(W, args, asJson)
 		},
 	}
 

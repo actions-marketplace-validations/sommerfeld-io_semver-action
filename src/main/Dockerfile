@@ -34,7 +34,7 @@
 #
 # In the ``build`` stage, the application's source code is copied into the Docker image, and the
 # binary is then built from the Go sources. The link:https://hub.docker.com/_/golang[``golang``] 
-# image is utilized, which is based on Apline Linux and comes pre-configured with all the necessary
+# image is utilized, which is based on Alpine Linux and comes pre-configured with all the necessary
 # tools for compiling Go applications. Nno extra software is installed.
 #
 # == Stage 2: ``run``

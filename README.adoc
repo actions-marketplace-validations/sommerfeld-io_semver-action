@@ -39,11 +39,32 @@ See link:https://github.com/sommerfeld-io/semver-action/blob/main/src/main/app/s
 The ``semver-action`` is specifically designed as a GitHub Actions workflow action, intended to be integrated into workflows. It is specifically utilized as part of the "Deploy + Release workflows" within the link:https://github.com/sommerfeld-io[sommerfeld-io GitHub organization]. However, the Dockerfile used in this action can also be employed independently for other purposes, allowing for versatile and standalone usage beyond GitHub Actions workflows.
 
 === Use in Github Actions Workflows 
+[source, yml]
+----
+# [...]
+jobs:
+  semver:
+    runs-on: ubuntu-latest
+    steps:
+      # [...]
+      - name: Validate version
+        uses: sommerfeld-io/semver-action@main
+        with:
+          command: validate ${{ github.event.inputs.version }}
+# [...]
+----
+
 ==== Inputs
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+[cols="1,3,>1*",options="header"]
+|===
+|Param |Description |Required
+|command |The semver command that should be run |true
+|===
+
+For information about all available commands, run `docker run --rm sommerfeldio/semver:latest`. This will show the applications help.
 
 ==== Outputs
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+_No outputs specified._
 
 === Use Docker image outside of Github Actions
 The Docker image of the "semver-action" is not only used internally for GitHub Actions workflows but is also link:https://hub.docker.com/r/sommerfeldio/semver[published to DockerHub]. For standalone usage of the Docker image, run `docker run --rm local/semver:dev` (showing the applications help) or `docker run --rm local/semver:dev validate v.1.0` to validate a version against semantic versioning rules.

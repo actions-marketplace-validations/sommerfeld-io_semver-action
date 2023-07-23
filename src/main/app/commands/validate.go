@@ -21,7 +21,7 @@ func addFlags(cmd *cobra.Command) {
 	cmd.Flags().Bool(JSON_FLAG, false, "return result as json with error message if validation fails")
 }
 
-func runValidate(w io.Writer, args []string, asJson bool) {
+func runValidate(w io.Writer, args []string, asJson bool) bool {
 	version := args[0]
 	validationResult := services.Validate(version)
 
@@ -31,15 +31,11 @@ func runValidate(w io.Writer, args []string, asJson bool) {
 			log.Fatal(err)
 		}
 		fmt.Fprintln(w, string(bytes))
-		if !validationResult.Valid {
-			os.Exit(1)
-		}
 	} else {
 		fmt.Fprintln(w, validationResult.Valid)
-		if !validationResult.Valid {
-			os.Exit(1)
-		}
 	}
+
+	return validationResult.Valid
 }
 
 // NewCmdConfig initializes the `tron config` command.
@@ -52,7 +48,11 @@ func NewCmdValidate() *cobra.Command {
 
 		Run: func(cmd *cobra.Command, args []string) {
 			asJson := cmd.Flags().Lookup(JSON_FLAG).Changed
-			runValidate(W, args, asJson)
+			valid := runValidate(W, args, asJson)
+
+			if !valid {
+				os.Exit(1)
+			}
 		},
 	}
 

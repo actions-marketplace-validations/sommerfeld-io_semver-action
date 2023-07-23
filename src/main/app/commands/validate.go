@@ -3,11 +3,16 @@ package commands
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
+	"os"
 
 	"github.com/sommerfeld-io/semver/services"
 	"github.com/spf13/cobra"
 )
+
+// Default io.Writer
+var W = os.Stdout
 
 // Flag to determine if the output should be human readable plain text or JSON
 const JSON_FLAG = "json"
@@ -16,7 +21,7 @@ func addFlags(cmd *cobra.Command) {
 	cmd.Flags().Bool(JSON_FLAG, false, "return result as json with error message if validation fails")
 }
 
-func run(cmd *cobra.Command, args []string) {
+func runValidate(w io.Writer, cmd *cobra.Command, args []string) {
 	version := args[0]
 	validationResult := services.Validate(version)
 
@@ -25,9 +30,9 @@ func run(cmd *cobra.Command, args []string) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(string(bytes))
+		fmt.Fprintln(w, string(bytes))
 	} else {
-		fmt.Println(validationResult.Valid)
+		fmt.Fprintln(w, validationResult.Valid)
 	}
 }
 
@@ -40,7 +45,7 @@ func NewCmdValidate() *cobra.Command {
 		Args:  cobra.ExactArgs(1),
 
 		Run: func(cmd *cobra.Command, args []string) {
-			run(cmd, args)
+			runValidate(W, cmd, args)
 		},
 	}
 

@@ -1,6 +1,9 @@
 package commands
 
 import (
+	"bytes"
+	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/spf13/cobra"
@@ -33,4 +36,20 @@ func Test_ShouldCreateCmdValidate(t *testing.T) {
 
 	assert.NotNil(got.Flags().Lookup(JSON_FLAG), "Flag should exist")
 	assert.False(got.Flags().Lookup(JSON_FLAG).Hidden, "Flag should not be hidden")
+}
+
+func Test_ShouldPrintPlainResult(t *testing.T) {
+	assert := assert.New(t)
+
+	var output bytes.Buffer
+	cmd := NewCmdValidate()
+	args := []string{"v0.1.0"}
+
+	runValidate(&output, cmd, args)
+
+	resultString := strings.ReplaceAll(output.String(), "\n", "")
+	result, err := strconv.ParseBool(resultString)
+
+	assert.Nil(err)
+	assert.True(result)
 }

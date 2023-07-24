@@ -48,3 +48,10 @@ ignore:
   # antora ui bundle
   - src/main/ui/.gulp.json
   - src/main/ui/src/js/vendor/highlight.bundle.js
+
+  # hugo
+  - sites/root/resources/_gen
+  - sites/root/static/css/fontawesome-all.min.css
+  - sites/root/static/js/fontawesome-all.min.js
+  - sites/root/themes/hugo-story
+  - sites/root/layouts/partials/elements_reference.html

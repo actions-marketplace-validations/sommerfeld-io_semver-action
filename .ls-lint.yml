@@ -46,10 +46,7 @@ ignore:
   - resources/sync/linters
 
   # antora ui bundle
-  - src/main/ui/.gulp.json
-  - src/main/ui/src/js/vendor/highlight.bundle.js
-
-  # hugo (startpage)
-  - sites/root/resources/_gen
-  - sites/root/content/_index.adoc
-  - sites/root/themes/hugo-split-theme/exampleSite/content/_index.md
+  - src/main/ui-blog/.gulp.json
+  - src/main/ui-blog/src/js/vendor/highlight.bundle.js
+  - src/main/ui-docs/.gulp.json
+  - src/main/ui-docs/src/js/vendor/highlight.bundle.js

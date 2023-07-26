@@ -4,6 +4,15 @@
 
     ".vscode",
 
+    "blog/modules/*/assets/attachments/**",
+    "blog/modules/*/assets/images/**",
+    "blog/modules/*/examples/*",
+    "blog/modules/*/examples/**",
+    "blog/modules/*/pages/*",
+    "blog/modules/*/pages/**",
+    "blog/modules/*/partials/*",
+    "blog/modules/*/partials/**",
+
     "config/**",
 
     "docs/modules/*/assets/attachments/**",

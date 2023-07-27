@@ -33,12 +33,12 @@ jobs:
           echo "Tag with version = ${{ github.event.inputs.version }}"
           echo "Publish Artifacts = ${{ github.event.inputs.publish }}"
         shell: bash
-      # - name: Checkout code
-      #   uses: actions/checkout@v3
       - name: Validate version
         uses: sommerfeld-io/semver-action@main
         with:
-          command: validate ${{ github.event.inputs.version }}
+          command: validate
+          version: ${{ github.event.inputs.version }}
+          flags: --json
 
   update-version:
     runs-on: ubuntu-latest

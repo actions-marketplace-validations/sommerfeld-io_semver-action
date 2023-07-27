@@ -6,8 +6,18 @@ inputs:
     description: The semver command that should be run
     default: ""
     required: true
+  version:
+    description: The Version, that should be passed to the semver command
+    default: ""
+    required: true
+  flags:
+    description: Flags to pass to the semver command (optional)
+    default: ""
+    required: false
 runs:
   using: 'docker'
   image: 'src/main/Dockerfile'
   args:
     - ${{ inputs.command }}
+    - ${{ inputs.version }}
+    - ${{ inputs.flags }}

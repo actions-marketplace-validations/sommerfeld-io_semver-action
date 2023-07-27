@@ -16,19 +16,25 @@
 #
 # === Script Arguments
 #
-# * *$@* (string): All arguments passed to the container. These arguments are all passed to the ``semver`` binary.
+# * *$1* (string): The ``semver`` command
+# * *$2* (string): The argument to pass to the ``semver`` command
+# * *$2* (string): Flags to pass to the ``semver`` command (optional)
 #
 # === Script Example
 #
 # [source, bash]
 # ```
-# ./t.sh
+# ./entrypoint.sh validate v0.1.0
+# ./entrypoint.sh validate v0.1.0 --json
 # ```
 #
 # == Prerequisites
 # Ensure that Docker is installed and on your system.
 
 
-echo "----- " "$@"
-echo "===== $1"
-semver "$1"
+# Check if $3 is NULL
+if [ -z "$3" ]; then
+    semver "$1" "$2"
+else
+    semver "$1" "$2" "$3"
+fi

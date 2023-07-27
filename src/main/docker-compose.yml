@@ -108,16 +108,7 @@ services:
     container_name: run-8
     command: validate v0.1-SNAPSHOT --json
 
-  # cleanup:
-  #   image: alpine:3.18.2
-  #   container_name: cleanup
-  #   depends_on:
-  #     test:
-  #       condition: service_completed_successfully
-  #   user: ${MY_UID}:${MY_GID}
-  #   volumes: *volumes
-  #   working_dir: /app
-  #     - /bin/sh
-  #     - -c
-  #     - |
-  #       rm -f go-code-coverage.out
+  run-9:
+    <<: *run-config
+    container_name: run-9
+    command: validate "please break"

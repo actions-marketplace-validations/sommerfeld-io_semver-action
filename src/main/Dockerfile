@@ -71,5 +71,7 @@ COPY --from=build app/semver /usr/bin/semver
 ARG USER=semver
 RUN adduser -D $USER
 
+COPY ./entrypoint.sh /opt/entrypoint.sh
+
 USER $USER
-ENTRYPOINT [ "/usr/bin/semver $INPUT_COMMAND" ]
+ENTRYPOINT ["/opt/entrypoint.sh"]

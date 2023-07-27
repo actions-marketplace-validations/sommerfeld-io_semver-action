@@ -29,4 +29,6 @@
 # Ensure that Docker is installed and on your system.
 
 
-semver "$@"
+echo "----- " "$@"
+echo "===== $1"
+semver "$1"

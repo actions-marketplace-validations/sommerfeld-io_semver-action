@@ -30,14 +30,17 @@ It allows users to pass arguments to the semver binary .
 
 === Script Arguments
 
-* _$@_ (string): All arguments passed to the container. These arguments are all passed to the `semver` binary.
+* _$1_ (string): The `semver` command
+* _$2_ (string): The argument to pass to the `semver` command
+* _$2_ (string): Flags to pass to the `semver` command (optional)
 
 === Script Example
 
 [source, bash]
 
 ----
-./t.sh
+./entrypoint.sh validate v0.1.0
+./entrypoint.sh validate v0.1.0 --json
 ----
 
 == Prerequisites

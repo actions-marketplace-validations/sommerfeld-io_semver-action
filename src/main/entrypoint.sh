@@ -17,7 +17,7 @@
 # === Script Arguments
 #
 # * *$1* (string): The ``semver`` command
-# * *$2* (string): The argument to pass to the ``semver`` command
+# * *$2* (string): The arguments to pass to the ``semver`` command
 # * *$2* (string): Flags to pass to the ``semver`` command (optional)
 #
 # === Script Example
@@ -32,9 +32,14 @@
 # Ensure that Docker is installed and on your system.
 
 
+readonly CMD="$1"
+readonly ARGS="$2"
+readonly FLAGS="$3"
+
+
 # Check if $3 is NULL
-if [ -z "$3" ]; then
-    semver "$1" "$2"
+if [ -z "$FLAGS" ]; then
+    semver "$CMD" "$ARGS"
 else
-    semver "$1" "$2" "$3"
+    semver "$CMD" "$ARGS" "$FLAGS"
 fi

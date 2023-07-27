@@ -22,27 +22,12 @@ permissions:
   contents: read
 
 jobs:
-  validate-inputs:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Info
-        run: |
-          echo "Github Ref = ${{ github.ref }}"
-          echo "Github Event = ${{ github.event_name }}"
-          echo "Tag with version = ${{ github.event.inputs.version }}"
-          echo "Publish Artifacts = ${{ github.event.inputs.publish }}"
-        shell: bash
-      - name: Validate version
-        uses: sommerfeld-io/semver-action@main
-        with:
-          command: validate
-          version: ${{ github.event.inputs.version }}
-          flags: --json
+  call-workflow:
+    uses: sommerfeld-io/.github/.github/workflows/module-release-validate-inputs.yml@main
 
   update-version:
     runs-on: ubuntu-latest
-    needs: validate-inputs
+    needs: call-workflow
     permissions:
       contents: write
     steps:
@@ -65,7 +50,7 @@ jobs:
 
   release-tests:
     runs-on: ubuntu-latest
-    needs: validate-inputs
+    needs: call-workflow
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -194,7 +179,7 @@ jobs:
 
   on-failure:
     runs-on: ubuntu-latest
-    needs: ['validate-inputs', 'update-version', 'release-tests', 'github-tag-and-release', 'reset-version', 'deploy-dockerhub', 'dockerhub-desc', 'validate-deploy-dockerhub']
+    needs: ['call-workflow', 'update-version', 'release-tests', 'github-tag-and-release', 'reset-version', 'deploy-dockerhub', 'dockerhub-desc', 'validate-deploy-dockerhub']
     if: failure()
     steps:
       - name: Send Pipeline Status to Google Chat

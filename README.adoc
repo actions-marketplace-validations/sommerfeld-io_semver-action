@@ -36,7 +36,7 @@ Semantic versions are applied in the link:https://github.com/sommerfeld-io[somme
 See link:https://github.com/sommerfeld-io/semver-action/blob/main/src/main/app/services/validate_service_test.go[src/main/app/services/validate_service_test.go] for details on allow and forbidden version patterns.
 
 == How to use this project
-The ``semver-action`` is specifically designed as a GitHub Actions workflow action, intended to be integrated into workflows. It is specifically utilized as part of the "Deploy + Release workflows" within the link:https://github.com/sommerfeld-io[sommerfeld-io GitHub organization]. However, the Dockerfile used in this action can also be employed independently for other purposes, allowing for versatile and standalone usage beyond GitHub Actions workflows.
+The `semver-action` is specifically designed as a GitHub Actions workflow action, intended to be integrated into workflows. It is specifically utilized as part of the "Deploy + Release workflows" within the link:https://github.com/sommerfeld-io[sommerfeld-io GitHub organization]. However, the Dockerfile used in this action can also be employed independently for other purposes, allowing for versatile and standalone usage beyond GitHub Actions workflows.
 
 === Use in Github Actions Workflows 
 [source, yml]

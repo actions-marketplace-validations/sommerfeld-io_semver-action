@@ -23,6 +23,8 @@
 		}
 	},
 
+	"postCreateCommand": ".devcontainer/post-create-commands.sh"
+
 	// Set docker network mode
 	// "runArgs": [
 	// 	"--network=host"

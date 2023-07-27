@@ -31,7 +31,7 @@ It allows users to pass arguments to the semver binary .
 === Script Arguments
 
 * _$1_ (string): The `semver` command
-* _$2_ (string): The argument to pass to the `semver` command
+* _$2_ (string): The arguments to pass to the `semver` command
 * _$2_ (string): Flags to pass to the `semver` command (optional)
 
 === Script Example

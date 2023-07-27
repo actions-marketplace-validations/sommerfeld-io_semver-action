@@ -50,15 +50,19 @@ jobs:
       - name: Validate version
         uses: sommerfeld-io/semver-action@main
         with:
-          command: validate ${{ github.event.inputs.version }}
+          command: validate
+          version: ${{ github.event.inputs.version }}
+          flags: --json
 # [...]
 ----
 
 ==== Inputs
-[cols="1,3,>1*",options="header"]
+[cols="1,3,>1",options="header"]
 |===
 |Param |Description |Required
 |command |The semver command that should be run |true
+|version |The Version, that should be passed to the semver command |true
+|flags |Flags to pass to the semver command (optional) |false
 |===
 
 For information about all available commands, run `docker run --rm sommerfeldio/semver:latest`. This will show the applications help.

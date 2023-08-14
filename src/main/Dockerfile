@@ -52,7 +52,7 @@
 # * To run this Compose config, use xref:AUTO-GENERATED:bash-docs/src/main/semver-sh.adoc[``src/main/semver.sh``] bash script.
 
 
-FROM golang:1.20-rc-alpine AS build
+FROM golang:1.21-rc-alpine AS build
 LABEL maintainer="sebastian@sommerfeld.io"
 
 COPY app /app

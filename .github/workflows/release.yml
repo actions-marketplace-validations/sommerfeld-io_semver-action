@@ -32,7 +32,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Adjust version in antora.yml
         uses: sebastian-sommerfeld-io/github-action-update-antora-yml@main
         with:
@@ -53,7 +53,7 @@ jobs:
     needs: call-workflow
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # todo ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...
       # todo ... Run the image and validate som json results ... ... ...
       # todo ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...
@@ -106,7 +106,7 @@ jobs:
     steps:
       - name: Checkout code
         if: github.event.inputs.publish == 'true'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Convert README from Asciidoc to Markdown for DockerHub description
         if: github.event.inputs.publish == 'true'
         run: |
@@ -129,7 +129,7 @@ jobs:
     needs: validate-deploy-dockerhub
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Create tag and Github release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_REPO_AND_PROJECT }}
@@ -156,7 +156,7 @@ jobs:
         # Otherwise, uses the default branch.
         # To get the latest code base, the branch must be specified explicitely
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: main
       - name: DEBUG SHA

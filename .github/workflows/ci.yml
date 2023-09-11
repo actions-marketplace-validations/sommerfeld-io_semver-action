@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: hadolint
         uses: hadolint/hadolint-action@v3.1.0
         with:
@@ -38,7 +38,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Setup Golang
@@ -72,7 +72,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: INFO
         run: |
           echo ${{ github.workspace }}
@@ -111,7 +111,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Test go app
         run: |
           docker pull ${{ env.IMAGE }}:ci # TODO get tag dynamically from previous job somwhow !!!!!!!!!!
